@@ -1,0 +1,39 @@
+# Trigger: Pull Request → Label + Require Label + Publish Visualsoft Assets
+#
+# Calls centralised workflows to:
+#   1. Auto-label the PR.
+#   2. Require a valid label before merging.
+#   3. Re-publish vendor assets when a Dependabot PR updates a
+#      visualsoft/* Composer package.
+#   4. Check theme extension Liquid size when blocks/snippets change.
+#   5. Check extension locale JSON size (15 KB per file); comment overages on the PR.
+
+name: On Pull Request
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review, labeled, unlabeled]
+
+jobs:
+  label:
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/label-pr.yml@v0.17.0
+    secrets:
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+  require-label:
+    needs: label
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/require-label.yml@v0.13.0
+
+  publish-assets:
+    if: github.actor == 'dependabot[bot]'
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/publish-vs-assets.yml@v0.12.1
+    secrets:
+      DOWNLOAD_PRIVATE_REPOS: ${{ secrets.DOWNLOAD_PRIVATE_REPOS }}
+
+  check-liquid-size:
+    if: github.actor != 'dependabot[bot]' && contains(fromJSON('["opened","edited","reopened","synchronize"]'), github.event.action)
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/check-liquid-size.yml@v0.6.1
+
+  check-locale-size:
+    if: github.actor != 'dependabot[bot]' && contains(fromJSON('["opened","edited","reopened","synchronize"]'), github.event.action)
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/check-locale-size.yml@v0.7.0

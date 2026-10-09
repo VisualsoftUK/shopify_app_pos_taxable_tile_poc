@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Anpassade inställningar",
+    "discard": "Förkasta",
+    "save": "Spara",
+    "pages": {
+        "dashboard": "Instrumentpanel",
+        "how_it_works": "Hur det fungerar",
+        "settings": "Inställningar",
+        "plans": "Planer"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Exempelstatistik 1",
+            "example_stat_2": "Exempelstatistik 2",
+            "example_stat_3": "Exempelstatistik 3",
+            "example_stat_4": "Exempelstatistik 4"
+        },
+        "welcome_panel": {
+            "title": "Välkommen till {{app_name}}",
+            "description": "Denna app låter dig:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Anpassad konfiguration",
+    "custom_configuration_description": "Avancerade konfigurationsalternativ för denna modul.",
+    "dropzone": {
+        "remove_images": "Ta bort bilder",
+        "upload_image": "Ladda upp bild"
+    },
+    "setup_guide": {
+        "description": "Använd den här guiden för att komma igång med appen.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Aktivera mallappen",
+                "description": "Aktivera mallappen för att komma igång!",
+                "bullet1": "Öppna temaeditorn genom att klicka på länken nedan",
+                "bullet2": "Hitta mallappen i listan och växla den till \"Aktiv\"",
+                "bullet3": "Klicka på \"Spara\" för att tillämpa ändringarna",
+                "action": "Aktivera mallappen"
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Benutzerdefinierte Einstellungen",
+    "discard": "Verwerfen",
+    "save": "Speichern",
+    "pages": {
+        "dashboard": "Dashboard",
+        "how_it_works": "Wie es funktioniert",
+        "settings": "Einstellungen",
+        "plans": "Pläne"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Beispielstatistik 1",
+            "example_stat_2": "Beispielstatistik 2",
+            "example_stat_3": "Beispielstatistik 3",
+            "example_stat_4": "Beispielstatistik 4"
+        },
+        "welcome_panel": {
+            "title": "Willkommen bei {{app_name}}",
+            "description": "Diese App ermöglicht es Ihnen:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Benutzerdefinierte Konfiguration",
+    "custom_configuration_description": "Erweiterte Konfigurationsoptionen für dieses Modul.",
+    "dropzone": {
+        "remove_images": "Bilder entfernen",
+        "upload_image": "Bild hochladen"
+    },
+    "setup_guide": {
+        "description": "Verwenden Sie diese Anleitung, um mit der App zu beginnen.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Template-App aktivieren",
+                "description": "Aktivieren Sie die Template-App, um loszulegen!",
+                "bullet1": "Öffnen Sie den Theme-Editor über den untenstehenden Link",
+                "bullet2": "Finden Sie die Template-App in der Liste und schalten Sie sie auf „Aktiv“",
+                "bullet3": "Klicken Sie auf „Speichern“, um die Änderungen zu übernehmen",
+                "action": "Template-App aktivieren"
+            }
+        }
+    }
+}

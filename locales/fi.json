@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Mukautetut asetukset",
+    "discard": "Hylkää",
+    "save": "Tallenna",
+    "pages": {
+        "dashboard": "Kojelauta",
+        "how_it_works": "Miten se toimii",
+        "settings": "Asetukset",
+        "plans": "Suunnitelmat"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Esimerkkitilasto 1",
+            "example_stat_2": "Esimerkkitilasto 2",
+            "example_stat_3": "Esimerkkitilasto 3",
+            "example_stat_4": "Esimerkkitilasto 4"
+        },
+        "welcome_panel": {
+            "title": "Tervetuloa {{app_name}}",
+            "description": "Tämä sovellus mahdollistaa:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Mukautettu konfiguraatio",
+    "custom_configuration_description": "Edistyneet konfiguraatioasetukset tälle moduulille.",
+    "dropzone": {
+        "remove_images": "Poista kuvat",
+        "upload_image": "Lataa kuva"
+    },
+    "setup_guide": {
+        "description": "Käytä tätä opasta aloittaaksesi sovelluksen käytön.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Aktivoi mallisovellus",
+                "description": "Aktivoi mallisovellus aloittaaksesi!",
+                "bullet1": "Avaa teema-editori napsauttamalla alla olevaa linkkiä",
+                "bullet2": "Etsi mallisovellus listasta ja vaihda se tilaan \"Aktiivinen\"",
+                "bullet3": "Napsauta \"Tallenna\" muutosten tallentamiseksi",
+                "action": "Aktivoi mallisovellus"
+            }
+        }
+    }
+}

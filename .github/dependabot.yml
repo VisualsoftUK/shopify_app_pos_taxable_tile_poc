@@ -1,0 +1,47 @@
+version: 2
+
+# Global Group for All Ecosystems
+multi-ecosystem-groups:
+  all-dependencies:
+    schedule:
+      interval: weekly
+      day: sunday
+      timezone: Europe/London
+      time: "21:00"
+    open-pull-requests-limit: 6
+    labels:
+      - dependencies
+    commit-message:
+      prefix: "chore(deps)"
+
+updates:
+  # PHP / Composer Configuration
+  - package-ecosystem: composer
+    directory: "/"
+    cooldown:
+      default-days: 7
+    ignore:
+      # Ignore major versions to prevent breaking changes
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    patterns: ["*"]
+    multi-ecosystem-group: all-dependencies
+
+  # Node.js / NPM Configuration
+  - package-ecosystem: npm
+    directory: "/"
+    cooldown:
+      default-days: 7
+    ignore:
+      # Ignore major versions to prevent breaking changes
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "@shopify/ui-extensions*"
+        # Ignore Shopify's UI Extensions as it uses CalVer
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+    patterns: ["*"]
+    multi-ecosystem-group: all-dependencies

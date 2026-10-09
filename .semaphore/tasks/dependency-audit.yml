@@ -1,0 +1,39 @@
+version: v1.0
+name: Dependency Audit
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2404
+execution_time_limit:
+  minutes: 5
+auto_cancel:
+  running:
+    when: 'true'
+blocks:
+  - name: Audits
+    task:
+      secrets:
+        - name: Github
+        - name: dockyard - shopify-app-example
+        - name: Shopify App - Example (Testing)
+        # Secret to allow sending a failure notification to Google Chat
+        - name: Semaphore Build Failure Webhook
+      prologue:
+        commands:
+          - 'checkout'
+          - 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_URI'
+      epilogue:
+        on_fail:
+          commands:
+            # Script exits without sending unless the git ref maps to testing, acceptance, or production
+            - if [ -f .semaphore/build_failure_notification.sh ]; then bash .semaphore/build_failure_notification.sh; else echo "Failure notification script not present in .semaphore."; fi
+      jobs:
+        - name: Composer Audit
+          commands:
+            - 'docker run -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/php-cli-8.5:latest composer-install-dev'
+            - 'docker run -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/php-cli-8.5:latest composer-audit'
+        - name: NPM Audit
+          commands:
+            - './bin/build-shopify-config.sh'
+            - 'docker run --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/shopify-app-build:latest npm install'
+            - 'docker run --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/shopify-app-build:latest npm audit --omit=dev --audit-level=high'

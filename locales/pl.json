@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Niestandardowe ustawienia",
+    "discard": "Odrzuć",
+    "save": "Zapisz",
+    "pages": {
+        "dashboard": "Panel",
+        "how_it_works": "Jak to działa",
+        "settings": "Ustawienia",
+        "plans": "Plany"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Przykładowa statystyka 1",
+            "example_stat_2": "Przykładowa statystyka 2",
+            "example_stat_3": "Przykładowa statystyka 3",
+            "example_stat_4": "Przykładowa statystyka 4"
+        },
+        "welcome_panel": {
+            "title": "Witamy w {{app_name}}",
+            "description": "Ta aplikacja umożliwia:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Niestandardowa konfiguracja",
+    "custom_configuration_description": "Zaawansowane opcje konfiguracji dla tego modułu.",
+    "dropzone": {
+        "remove_images": "Usuń obrazy",
+        "upload_image": "Prześlij obraz"
+    },
+    "setup_guide": {
+        "description": "Użyj tego przewodnika, aby rozpocząć korzystanie z aplikacji.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Aktywuj aplikację szablonową",
+                "description": "Aktywuj aplikację szablonową, aby rozpocząć!",
+                "bullet1": "Otwórz edytor motywu, klikając link poniżej",
+                "bullet2": "Znajdź aplikację szablonową na liście i przełącz ją na „Aktywna”",
+                "bullet3": "Kliknij „Zapisz”, aby zastosować zmiany",
+                "action": "Aktywuj aplikację szablonową"
+            }
+        }
+    }
+}

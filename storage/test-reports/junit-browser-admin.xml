@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Browser\Admin\DashboardTest" file="tests/Browser/Admin/DashboardTest.php" tests="1" assertions="7" errors="0" failures="0" skipped="0" time="1.202666">
+    <testcase name="it loads the dashboard for a shop with an active mantle plan" class="Tests\Browser\Admin\DashboardTest" classname="Tests.Browser.Admin.DashboardTest" file="tests/Browser/Admin/DashboardTest.php::it loads the dashboard for a shop with an active mantle plan" line="0" assertions="7" time="1.202666"/>
+  </testsuite>
+</testsuites>

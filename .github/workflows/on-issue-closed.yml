@@ -1,0 +1,25 @@
+# Trigger: Issue Closed → Support notification / DevOps board status
+#
+# Notifies the service desk when a support-ticket issue is closed.
+# DevOps issues skip the product factory, so closing one moves it to Live.
+
+name: On Issue Closed
+
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  notify:
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/support-ticket-closed.yml@v0.13.0
+    secrets:
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+  sync-project-status:
+    if: github.event.issue.type.name == 'DevOps'
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/project-status-sync.yml@main
+    with:
+      project_org: VisualsoftUK
+      project_number: ${{ vars.PROJECT_NUMBER }}
+    secrets:
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}

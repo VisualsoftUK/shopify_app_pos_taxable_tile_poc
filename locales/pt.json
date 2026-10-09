@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Configurações personalizadas",
+    "discard": "Descartar",
+    "save": "Salvar",
+    "pages": {
+        "dashboard": "Painel",
+        "how_it_works": "Como funciona",
+        "settings": "Configurações",
+        "plans": "Planos"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Estatística de exemplo 1",
+            "example_stat_2": "Estatística de exemplo 2",
+            "example_stat_3": "Estatística de exemplo 3",
+            "example_stat_4": "Estatística de exemplo 4"
+        },
+        "welcome_panel": {
+            "title": "Bem-vindo ao {{app_name}}",
+            "description": "Este aplicativo permite que você:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Configuração personalizada",
+    "custom_configuration_description": "Opções de configuração avançadas para este módulo.",
+    "dropzone": {
+        "remove_images": "Remover imagens",
+        "upload_image": "Enviar imagem"
+    },
+    "setup_guide": {
+        "description": "Use este guia para começar a usar o app.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Ativar app de modelo",
+                "description": "Ative o app de modelo para começar!",
+                "bullet1": "Abra o editor de temas clicando no link abaixo",
+                "bullet2": "Localize o app de modelo na lista e ative-o",
+                "bullet3": "Clique em \"Guardar\" para aplicar as alterações",
+                "action": "Ativar app de modelo"
+            }
+        }
+    }
+}

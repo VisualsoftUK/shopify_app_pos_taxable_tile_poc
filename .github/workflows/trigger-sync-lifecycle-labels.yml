@@ -1,0 +1,15 @@
+# Trigger: Sync lifecycle labels (dispatch only)
+#
+# Thin wrapper. Logic lives in sync-lifecycle-labels.yml.
+# Run from Actions → Sync Lifecycle Labels → Run workflow.
+
+name: Sync Lifecycle Labels
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync-labels:
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/sync-lifecycle-labels.yml@main
+    secrets:
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}

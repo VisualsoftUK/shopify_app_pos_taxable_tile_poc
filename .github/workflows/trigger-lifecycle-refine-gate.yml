@@ -1,0 +1,30 @@
+# Trigger: Lifecycle Refine Gate (dispatch only)
+#
+# Thin wrapper. Logic lives in lifecycle-refine-gate.yml.
+# Intake/post-epic already call refine-gate in-process; use this for
+# `/lifecycle refine-gate` when design-refinement-complete is added later.
+
+name: Trigger Lifecycle Refine Gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue number to process
+        required: true
+        type: string
+  repository_dispatch:
+    types: [lifecycle-refine-gate]
+
+concurrency:
+  group: lifecycle-${{ github.repository }}-${{ github.event.client_payload.issue_number || inputs.issue_number }}
+  cancel-in-progress: false
+
+jobs:
+  refine-gate:
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/lifecycle-refine-gate.yml@main
+    with:
+      issue_number: ${{ inputs.issue_number || github.event.client_payload.issue_number }}
+    secrets:
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

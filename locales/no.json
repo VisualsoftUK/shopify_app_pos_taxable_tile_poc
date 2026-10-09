@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Tilpassede innstillinger",
+    "discard": "Forkast",
+    "save": "Lagre",
+    "pages": {
+        "dashboard": "Dashbord",
+        "how_it_works": "Hvordan det fungerer",
+        "settings": "Innstillinger",
+        "plans": "Planer"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Eksempelstatistikk 1",
+            "example_stat_2": "Eksempelstatistikk 2",
+            "example_stat_3": "Eksempelstatistikk 3",
+            "example_stat_4": "Eksempelstatistikk 4"
+        },
+        "welcome_panel": {
+            "title": "Velkommen til {{app_name}}",
+            "description": "Denne appen lar deg:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Tilpasset konfigurasjon",
+    "custom_configuration_description": "Avanserte konfigurasjonsalternativer for denne modulen.",
+    "dropzone": {
+        "remove_images": "Fjern bilder",
+        "upload_image": "Last opp bilde"
+    },
+    "setup_guide": {
+        "description": "Bruk denne veiledningen for å komme i gang med appen.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Aktiver malappen",
+                "description": "Aktiver malappen for å komme i gang!",
+                "bullet1": "Åpne temaeditoren ved å klikke på lenken nedenfor",
+                "bullet2": "Finn malappen i listen og slå den til \"Aktiv\"",
+                "bullet3": "Klikk \"Lagre\" for å bruke endringene",
+                "action": "Aktiver malappen"
+            }
+        }
+    }
+}

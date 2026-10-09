@@ -1,0 +1,27 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = '${SHOPIFY_APP_NAME}'
+client_id = '${SHOPIFY_API_KEY}'
+application_url = '${SHOPIFY_APP_URL}'
+embedded = true
+handle = '${SHOPIFY_APP_HANDLE}'
+
+[app_preferences]
+url = '${SHOPIFY_APP_PREFERENCES_URL}'
+
+[pos]
+embedded = false
+
+[auth]
+redirect_urls = [ '${SHOPIFY_APP_REDIRECT_URL}' ]
+
+[access_scopes]
+scopes = '${SHOPIFY_API_SCOPES}'
+
+[webhooks]
+api_version = '${SHOPIFY_API_VERSION}'
+
+[[webhooks.subscriptions]]
+topics = [ 'app/uninstalled' ]
+compliance_topics = [ 'customers/redact', 'customers/data_request', 'shop/redact' ]
+uri = '${SHOPIFY_WEBHOOKS_URL}'

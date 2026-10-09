@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Aangepaste instellingen",
+    "discard": "Verwerpen",
+    "save": "Opslaan",
+    "pages": {
+        "dashboard": "Dashboard",
+        "how_it_works": "Hoe het werkt",
+        "settings": "Instellingen",
+        "plans": "Plannen"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Voorbeeldstatistiek 1",
+            "example_stat_2": "Voorbeeldstatistiek 2",
+            "example_stat_3": "Voorbeeldstatistiek 3",
+            "example_stat_4": "Voorbeeldstatistiek 4"
+        },
+        "welcome_panel": {
+            "title": "Welkom bij {{app_name}}",
+            "description": "Met deze app kun je:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Aangepaste configuratie",
+    "custom_configuration_description": "Geavanceerde configuratie-opties voor deze module.",
+    "dropzone": {
+        "remove_images": "Afbeeldingen verwijderen",
+        "upload_image": "Afbeelding uploaden"
+    },
+    "setup_guide": {
+        "description": "Gebruik deze gids om te beginnen met de app.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Sjabloon-app activeren",
+                "description": "Activeer de sjabloon-app om te beginnen!",
+                "bullet1": "Open de thema-editor door op de onderstaande link te klikken",
+                "bullet2": "Zoek de sjabloon-app in de lijst en zet deze op \"Actief\"",
+                "bullet3": "Klik op \"Opslaan\" om de wijzigingen toe te passen",
+                "action": "Sjabloon-app activeren"
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+/.phpunit.cache
+node_modules
+/public/build
+/public/hot
+/public/storage
+/public/vendor
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+*.bk
+.DS_Store
+# extensions build output
+extensions/*/build
+extensions/*/dist
+# Ignore shopify files created during app dev
+.shopify.lock
+.shopify/*
+extensions/main/assets/*.css
+extensions/main/assets/*.js
+extensions/main/assets/.vite/
+shopify.app.toml
+
+
+#Ignore cursor AI rules
+.cursor/rules/codacy.mdc
+
+# Laravel Debugbar
+/storage/debugbar
+
+# Pest browser test failure screenshots
+/storage/browser-test-artifacts

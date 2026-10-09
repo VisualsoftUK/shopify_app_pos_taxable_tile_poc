@@ -1,0 +1,32 @@
+# Trigger: Lifecycle Replan (dispatch only)
+#
+# Thin wrapper. Logic lives in lifecycle-replan.yml.
+# Slash: `/lifecycle replan`
+
+name: Trigger Lifecycle Replan
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue number to process
+        required: true
+        type: string
+  repository_dispatch:
+    types: [lifecycle-replan]
+
+concurrency:
+  group: lifecycle-${{ github.repository }}-${{ github.event.client_payload.issue_number || inputs.issue_number }}
+  cancel-in-progress: false
+
+jobs:
+  replan:
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/lifecycle-replan.yml@main
+    with:
+      issue_number: ${{ inputs.issue_number || github.event.client_payload.issue_number }}
+      project_number: ${{ vars.PROJECT_NUMBER }}
+      app_description: ${{ vars.APP_DESCRIPTION }}
+    secrets:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}

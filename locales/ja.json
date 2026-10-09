@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "カスタム設定",
+    "discard": "破棄",
+    "save": "保存",
+    "pages": {
+        "dashboard": "ダッシュボード",
+        "how_it_works": "使い方",
+        "settings": "設定",
+        "plans": "プラン"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "サンプル統計 1",
+            "example_stat_2": "サンプル統計 2",
+            "example_stat_3": "サンプル統計 3",
+            "example_stat_4": "サンプル統計 4"
+        },
+        "welcome_panel": {
+            "title": "{{app_name}}へようこそ",
+            "description": "このアプリでできること：",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "カスタム設定",
+    "custom_configuration_description": "このモジュールの高度な設定オプションです。",
+    "dropzone": {
+        "remove_images": "画像を削除",
+        "upload_image": "画像をアップロード"
+    },
+    "setup_guide": {
+        "description": "このガイドを使用してアプリを始めましょう。",
+        "steps": {
+            "activate_template_app": {
+                "title": "テンプレートアプリを有効にする",
+                "description": "テンプレートアプリを有効にして始めましょう！",
+                "bullet1": "下のリンクをクリックしてテーマエディターを開く",
+                "bullet2": "リストでテンプレートアプリを見つけ、「有効」に切り替える",
+                "bullet3": "「保存」をクリックして変更を適用する",
+                "action": "テンプレートアプリを有効にする"
+            }
+        }
+    }
+}

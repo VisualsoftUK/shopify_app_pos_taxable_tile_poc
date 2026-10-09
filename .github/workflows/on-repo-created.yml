@@ -1,0 +1,59 @@
+# Trigger: Repo created from template → rename placeholders, then bootstrap
+#
+# Runs on the initial push when a repo is created from this template
+# (github.event.before is all zeros) and on manual workflow_dispatch.
+# Later pushes to main are skipped.
+#
+# 1. rename-shopify-app — rewrite example/template placeholders from the repo name
+# 2. bootstrap-shopify-app — labels, branch protection, teams
+#
+# Secret: SHOPIFY_APP_SETUP_TOKEN (org) — admin + push + team repo access.
+# Mapped to each reusable workflow's BOOTSTRAP_TOKEN input.
+#
+# After org-shared-workflows publishes rename-shopify-app, pin that uses: ref
+# to a release tag instead of @main.
+
+name: On Repo Created
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  rename:
+    if: >-
+      ${{ !github.event.repository.is_template
+      && (
+        startsWith(github.event.repository.name, 'shopify_app_')
+        || (
+          startsWith(github.event.repository.name, 'shopify_')
+          && endsWith(github.event.repository.name, '_app')
+        )
+      )
+      && (
+        github.event_name == 'workflow_dispatch'
+        || github.event.before == '0000000000000000000000000000000000000000'
+      ) }}
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/rename-shopify-app.yml@main
+    secrets:
+      BOOTSTRAP_TOKEN: ${{ secrets.SHOPIFY_APP_SETUP_TOKEN }}
+
+  bootstrap:
+    needs: rename
+    if: >-
+      ${{ !github.event.repository.is_template
+      && (
+        startsWith(github.event.repository.name, 'shopify_app_')
+        || (
+          startsWith(github.event.repository.name, 'shopify_')
+          && endsWith(github.event.repository.name, '_app')
+        )
+      )
+      && (
+        github.event_name == 'workflow_dispatch'
+        || github.event.before == '0000000000000000000000000000000000000000'
+      ) }}
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/bootstrap-shopify-app.yml@v0.8.4
+    secrets:
+      BOOTSTRAP_TOKEN: ${{ secrets.SHOPIFY_APP_SETUP_TOKEN }}

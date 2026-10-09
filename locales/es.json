@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Configuración personalizada",
+    "discard": "Descartar",
+    "save": "Guardar",
+    "pages": {
+        "dashboard": "Panel de control",
+        "how_it_works": "Cómo funciona",
+        "settings": "Configuración",
+        "plans": "Planes"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Estadística de ejemplo 1",
+            "example_stat_2": "Estadística de ejemplo 2",
+            "example_stat_3": "Estadística de ejemplo 3",
+            "example_stat_4": "Estadística de ejemplo 4"
+        },
+        "welcome_panel": {
+            "title": "Bienvenido a {{app_name}}",
+            "description": "Esta aplicación te permite:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Configuración personalizada",
+    "custom_configuration_description": "Opciones de configuración avanzadas para este módulo.",
+    "dropzone": {
+        "remove_images": "Eliminar imágenes",
+        "upload_image": "Subir imagen"
+    },
+    "setup_guide": {
+        "description": "Usa esta guía para empezar con la app.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Activar la app de plantilla",
+                "description": "¡Activa la app de plantilla para comenzar!",
+                "bullet1": "Abre el editor de temas haciendo clic en el enlace de abajo",
+                "bullet2": "Localiza la app de plantilla en la lista y actívala",
+                "bullet3": "Haz clic en \"Guardar\" para aplicar los cambios",
+                "action": "Activar app de plantilla"
+            }
+        }
+    }
+}

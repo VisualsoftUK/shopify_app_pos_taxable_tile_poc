@@ -1,0 +1,15 @@
+<div class="app-template">
+    <h2 class="app-template__title">Welcome</h2>
+    <p class="app-template__text">This is the app template extension.</p>
+</div>
+
+{% render 'vite-tag', entry: 'app.scss' %}
+{% render 'vite-tag', entry: 'app.js' %}
+
+{% schema %}
+{
+    "name": "App Template",
+    "target": "body",
+    "settings": []
+}
+{% endschema %}

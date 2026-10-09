@@ -1,0 +1,114 @@
+# Trigger: Issue Comment → Lifecycle slash resume + Codacy slash commands
+#
+# Thin wrapper. Lifecycle logic lives in lifecycle-slash.yml;
+# conflict resolution uses lifecycle-conflicts.yml;
+# review comments use lifecycle-reviews.yml;
+# Codacy slash uses codacy-autofix.yml and codacy-review.yml.
+#
+# Ordinary comments do not enqueue runs — only matching slash commands.
+#
+# Lifecycle (issue comments only):
+#   /lifecycle
+#   /lifecycle intake
+#   /lifecycle resume      → intake
+#   /lifecycle override policy|dedup|design  → reason required, then intake
+#   /lifecycle approved-design  → screenshot or Figma link required, then intake
+#   /lifecycle post-epic
+#   /lifecycle replan
+#   /lifecycle refine-gate
+#   /lifecycle implement
+#   Discussion commands live in on-discussion-comment.yml:
+#   /lifecycle summary [extra context]
+#   /lifecycle promote [Feature|Bug|Task|Spike|DevOps]
+#
+# Conflict resolution (implementation PR comments only):
+#   /lifecycle conflicts
+#
+# Outstanding review comments (implementation PR comments only):
+#   /lifecycle reviews
+#
+# Codacy (PR comments only):
+#   /codacy fix
+#   /codacy review
+
+name: On Issue Comment
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  lifecycle-resume:
+    if: >-
+      github.event.issue.pull_request == null &&
+      !contains(github.event.comment.user.login, '[bot]') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
+      (
+        startsWith(github.event.comment.body, '/lifecycle intake') ||
+        startsWith(github.event.comment.body, '/lifecycle resume') ||
+        startsWith(github.event.comment.body, '/lifecycle post-epic') ||
+        startsWith(github.event.comment.body, '/lifecycle replan') ||
+        startsWith(github.event.comment.body, '/lifecycle refine-gate') ||
+        startsWith(github.event.comment.body, '/lifecycle implement') ||
+        startsWith(github.event.comment.body, '/lifecycle override') ||
+        startsWith(github.event.comment.body, '/lifecycle approved-design') ||
+        github.event.comment.body == '/lifecycle' ||
+        startsWith(github.event.comment.body, '/lifecycle\n') ||
+        startsWith(github.event.comment.body, '/lifecycle\r\n')
+      )
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/lifecycle-slash.yml@main
+    secrets:
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+  lifecycle-conflicts:
+    if: >-
+      github.event.issue.pull_request != null &&
+      !contains(github.event.comment.user.login, '[bot]') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
+      (
+        startsWith(github.event.comment.body, '/lifecycle conflicts') ||
+        startsWith(github.event.comment.body, '/lifecycle conflicts\n') ||
+        startsWith(github.event.comment.body, '/lifecycle conflicts\r\n')
+      )
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/lifecycle-conflicts.yml@main
+    secrets:
+      CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+  lifecycle-reviews:
+    if: >-
+      github.event.issue.pull_request != null &&
+      !contains(github.event.comment.user.login, '[bot]') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
+      (
+        startsWith(github.event.comment.body, '/lifecycle reviews') ||
+        startsWith(github.event.comment.body, '/lifecycle reviews\n') ||
+        startsWith(github.event.comment.body, '/lifecycle reviews\r\n')
+      )
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/lifecycle-reviews.yml@main
+    secrets:
+      CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+  codacy-fix:
+    if: >-
+      github.event.issue.pull_request != null &&
+      startsWith(github.event.comment.body, '/codacy fix')
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/codacy-autofix.yml@main
+    secrets:
+      CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+  codacy-review:
+    if: >-
+      github.event.issue.pull_request != null &&
+      !contains(github.event.comment.user.login, '[bot]') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
+      startsWith(github.event.comment.body, '/codacy review')
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/codacy-review.yml@main
+    secrets:
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}

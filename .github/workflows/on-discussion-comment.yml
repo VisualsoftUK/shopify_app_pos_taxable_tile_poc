@@ -1,0 +1,30 @@
+# Trigger: Discussion Comment → `/lifecycle summary` or `/lifecycle promote`
+#
+# Thin wrapper. Summary and promote logic lives in discussion-to-issue.yml.
+#
+# Ordinary comments do not enqueue runs — only matching slash commands.
+#
+# Discussion comments:
+#   /lifecycle summary
+#   /lifecycle summary <extra context>
+#   /lifecycle promote
+#   /lifecycle promote Feature|Bug|Task|Spike|DevOps
+
+name: On Discussion Comment
+
+on:
+  discussion_comment:
+    types: [created]
+
+jobs:
+  lifecycle-discussion:
+    if: >-
+      !contains(github.event.comment.user.login || github.actor, '[bot]') &&
+      (
+        startsWith(github.event.comment.body, '/lifecycle promote') ||
+        startsWith(github.event.comment.body, '/lifecycle summary')
+      )
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/discussion-to-issue.yml@main
+    secrets:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}

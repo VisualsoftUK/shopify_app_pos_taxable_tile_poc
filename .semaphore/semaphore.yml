@@ -1,0 +1,133 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2404
+execution_time_limit:
+  minutes: 5
+auto_cancel:
+  running:
+    when: 'true'
+blocks:
+  - name: Tests
+    task:
+      secrets:
+        # Secret to allow pulling Visualsoft code from GitHub
+        - name: Github
+        # Secret to allow connecting to the dockyard container registry
+        - name: dockyard - shopify-app-example
+        # Secrets taken from Codacy > repo > Settings > Coverage, grabbing the Repository API Token & also the 4 vars from 'Using an account API token' tab
+        - name: Shopify App - Example (Codacy)
+        # Secrets relating to Shopify partner account
+        - name: Shopify Partner Token (Testing)
+        # Secrets relating to this specific app
+        - name: Shopify App - Example (Testing)
+        # Secret to allow sending a failure notification to Google Chat
+        - name: Semaphore Build Failure Webhook
+      prologue:
+        commands:
+          # Checkout the files from GitHub
+          - 'checkout'
+      jobs:
+        - name: Run PestPHP & Pint
+          commands:
+            # Login to the dockyard container registry using the variables from the secret
+            - 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_URI'
+            # Using the Visualsoft created php 8.5 container
+            # Run composer install with dev packages, using the GitHub secret
+            # We mount the local directory to /app inside the container, so any installed packages are stored on the local disk
+            - 'docker run -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/php-cli-8.5:latest composer-install-dev'
+            # Using the Visualsoft node 22 container
+            # Run npm clean install and npm run prod
+            # Again, we mount the local directory to /app inside the container, so any installed node packages / built files are stored on the local disk
+            - 'docker run --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/node-22:latest npm-run-prod'
+            # Using the Visualsoft created php 8.5 container
+            # Run Laravel Pint to flag up any Code Style issues. Uses the "laravel" preset
+            - 'docker run --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/php-cli-8.5:latest ./vendor/bin/pint -p --test'
+            # Create sqlite database (and migrate)
+            - 'touch ./database/database.sqlite'
+            - 'docker run --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/php-cli-8.5:latest php artisan migrate'
+            # With everything installed / built and mounted to /app inside the container, run the tests
+            # CI=true is what actually disables Test Impact Analysis, and must be passed into the
+            # container: Pest strips --no-tia before spawning paratest workers, so each worker would
+            # otherwise re-enable TIA from tests/Pest.php and abort on the container's missing git
+            - 'docker run -e CI=true --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/php-cli-8.5:latest pcov ./vendor/bin/pest -p --no-tia --coverage --coverage-clover storage/test-reports/clover.xml --exclude-testsuite=Browser'
+        - name: Run admin browser tests
+          commands:
+            - 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_URI'
+            - 'docker run -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/php-cli-8.5:latest composer-install-dev'
+            - 'touch .env'
+            - 'docker run --rm -v "$PWD:/app:Z" -e PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 $DOCKER_URI/vs-platform/node-22:latest npm-run-prod'
+            - bash vendor/visualsoft/vs-shopify-browser-testing/scripts/semaphore-admin-browser.sh
+        - name: Build theme app extension
+          commands:
+            # Login to the dockyard container registry using the variables from the secret
+            - 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_URI'
+            # Using the Visualsoft created php 8.5 container
+            # Run composer install with dev packages, using the GitHub secret
+            # We mount the local directory to /app inside the container, so any installed packages are stored on the local disk
+            - 'docker run -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/php-cli-8.5:latest composer-install-dev'
+            # Create shopify.app.toml file
+            - './bin/build-shopify-config.sh'
+            # Install local build assets
+            - 'docker run --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/shopify-app-build:latest npm install'
+            # Build local Shopify extension assets
+            - 'docker run --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/shopify-app-build:latest npm run shopify-ext-prod'
+            # Run shopify app build perform a theme extension check (aliased through build)
+            - 'docker run --rm -v "$PWD:/app:Z" $DOCKER_URI/vs-platform/shopify-app-build:latest npm run shopify-build'
+      env_vars: []
+promotions:
+  # Define the promotions: testing, preprod and prod
+  - name: (1) Testing
+    pipeline_file: build/1_testing.yml
+    auto_promote:
+      # Auto promote to testing when merged into the main branch, and the tests have all passed
+      when: 'branch = ''main'' AND result = ''passed'''
+  - name: (2) Acceptance
+    pipeline_file: build/2_acceptance.yml
+    auto_promote:
+      # Auto promote to preprod when a new release tag has been created, and the tests have all passed
+      when: 'result = ''passed'' AND tag =~ ''^v(?P<major>[0-9]\d*)\.(?P<minor>[0-9]\d*)\.(?P<patch>[0-9]\d*)-rc(?P<release_candidate>\d*)'''
+  - name: (3) Production
+    pipeline_file: build/3_production.yml
+    auto_promote:
+      # Auto promote to prod when a new release tag has been created, and the tests have all passed
+      when: 'result = ''passed'' AND tag =~ ''^v(?P<major>[0-9]\d*)\.(?P<minor>[0-9]\d*)\.(?P<patch>[0-9]\d*)$'''
+  - name: Dependency Audit
+    pipeline_file: tasks/dependency-audit.yml
+    auto_promote:
+      # Auto promote to run a dependency audit when all base tests have all passed
+      when: 'result = ''passed'''
+global_job_config:
+  epilogue:
+    always:
+      commands:
+        # Grab a suitable commit SHA
+        - export GIT_SHA=${SEMAPHORE_GIT_PR_SHA:=$SEMAPHORE_GIT_SHA}
+        # Storage::fake() under Docker can leave root-owned dirs that Codacy cannot traverse
+        - 'sudo rm -rf ./storage/framework/testing/disks 2>/dev/null || rm -rf ./storage/framework/testing/disks 2>/dev/null || true'
+        # Publish the Semaphore Tests report, from the PestPHP JUnit XML file (if exists)
+        - '[[ -f ./storage/test-reports/junit.xml ]] && test-results publish ./storage/test-reports/junit.xml --parser phpunit || true'
+        - '[[ -f ./storage/test-reports/junit-browser-admin.xml ]] && test-results publish ./storage/test-reports/junit-browser-admin.xml --parser phpunit || true'
+        # after_pipeline has no checkout — skip when vendor is not on disk
+        - '[[ -f vendor/visualsoft/vs-shopify-browser-testing/scripts/semaphore-epilogue-browser-failures.sh ]] && bash vendor/visualsoft/vs-shopify-browser-testing/scripts/semaphore-epilogue-browser-failures.sh || true'
+        # Publish the Codacy Coverage report for PHP, from the PestPHP Clover XML (if exists)
+        - 'if [[ -f ./storage/test-reports/clover.xml ]]; then bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l PHP --force-coverage-parser clover --partial -r ./storage/test-reports/clover.xml --commit-uuid $GIT_SHA; fi'
+    on_fail:
+      commands:
+        # Script exits without sending unless the git ref maps to testing, acceptance, or production
+        - if [ -f .semaphore/build_failure_notification.sh ]; then bash .semaphore/build_failure_notification.sh; else echo "Failure notification script not present in .semaphore."; fi
+after_pipeline:
+  task:
+    jobs:
+      - name: Submit Test Reports
+        commands:
+          # Grab a suitable commit SHA
+          - export GIT_SHA=${SEMAPHORE_GIT_PR_SHA:=$SEMAPHORE_GIT_SHA}
+          # Submit the Semaphore Tests Report
+          - test-results gen-pipeline-report
+          # Submit the Codacy Coverage Report
+          - bash <(curl -Ls https://coverage.codacy.com/get.sh) final --commit-uuid $GIT_SHA
+    secrets:
+      - name: Shopify App - Example (Codacy)

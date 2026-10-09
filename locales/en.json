@@ -1,0 +1,53 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Custom settings",
+    "discard": "Discard",
+    "save": "Save",
+    "pages": {
+        "dashboard": "Dashboard",
+        "how_it_works": "How It Works",
+        "settings": "Settings",
+        "plans": "Plans"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Example Stat 1",
+            "example_stat_1_tooltip": "Example Stat 1 tooltip",
+            "example_stat_2": "Example Stat 2",
+            "example_stat_2_tooltip": "Example Stat 2 tooltip",
+            "example_stat_3": "Example Stat 3",
+            "example_stat_3_tooltip": "Example Stat 3 tooltip",
+            "example_stat_4": "Example Stat 4",
+            "example_stat_4_tooltip": "Example Stat 4 tooltip"
+        },
+        "welcome_panel": {
+            "title": "Welcome to {{app_name}}",
+            "description": "This app enables you to:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Custom configuration",
+    "custom_configuration_description": "Advanced configuration options for this module.",
+    "dropzone": {
+        "remove_images": "Remove images",
+        "upload_image": "Upload image"
+    },
+    "setup_guide": {
+        "description": "Use this guide to get started with the app.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Activate Template App",
+                "description": "Activate the Template app to get started!",
+                "bullet1": "Open the theme editor by clicking the link below",
+                "bullet2": "Locate the Template app in the list, and toggle it to 'Active'",
+                "bullet3": "Click \"Save\" to apply the changes",
+                "action": "Activate Template App"
+            }
+        }
+    }
+}

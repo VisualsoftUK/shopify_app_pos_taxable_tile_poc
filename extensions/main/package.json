@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite dev",
+        "prod": "vite build"
+    },
+    "devDependencies": {
+        "sass": "^1.103.1",
+        "vite-plugin-shopify": "^4.1.2"
+    },
+    "trustedDependencies": [
+        "@shopify/plugin-cloudflare"
+    ]
+}

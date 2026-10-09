@@ -1,0 +1,5 @@
+.github/CODEOWNERS @VisualsoftUK/role-sa2-sysadmin @VisualsoftUK/architecture
+.semaphore/* @VisualsoftUK/role-sa2-sysadmin @VisualsoftUK/architecture
+
+docker/* @VisualsoftUK/role-sa2-sysadmin @VisualsoftUK/architecture
+docker-compose.yml @VisualsoftUK/role-sa2-sysadmin @VisualsoftUK/architecture

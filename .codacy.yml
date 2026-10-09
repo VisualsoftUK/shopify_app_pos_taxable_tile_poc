@@ -1,0 +1,18 @@
+---
+engines:
+  metric:
+    exclude_paths:
+      - "resources/js/**"
+
+exclude_paths:
+  - "vendor/**"
+  - "node_modules/**"
+  - "storage/**"
+  - "bootstrap/cache/**"
+  - "public/build/**"
+  - "*.min.js"
+  - "*.min.css"
+  - "tests/**"
+  - "resources/js/**"
+  - "extensions/**"
+  - "app/Application/Console/Kernel.php"

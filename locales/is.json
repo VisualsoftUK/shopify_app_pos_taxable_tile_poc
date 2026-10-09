@@ -1,0 +1,49 @@
+{
+    "app_name": "App Template",
+    "custom_settings": "Sérsniðnar stillingar",
+    "discard": "Hætta við",
+    "save": "Vista",
+    "pages": {
+        "dashboard": "Stjórnborð",
+        "how_it_works": "Hvernig það virkar",
+        "settings": "Stillingar",
+        "plans": "Áætlanir"
+    },
+    "dashboard": {
+        "stats": {
+            "example_stat_1": "Dæmi tölfræði 1",
+            "example_stat_2": "Dæmi tölfræði 2",
+            "example_stat_3": "Dæmi tölfræði 3",
+            "example_stat_4": "Dæmi tölfræði 4"
+        },
+        "welcome_panel": {
+            "title": "Velkomin í {{app_name}}",
+            "description": "Þessi app gerir þér kleift að:",
+            "features": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "Sed do eiusmod tempor incididunt ut labore et dolore",
+                "Ut enim ad minim veniam, quis nostrud exercitation",
+                "Duis aute irure dolor in reprehenderit in voluptate"
+            ]
+        }
+    },
+    "custom_configuration": "Sérsniðin stilling",
+    "custom_configuration_description": "Ítarlegar stillingar fyrir þetta einingu.",
+    "dropzone": {
+        "remove_images": "Fjarlægja myndir",
+        "upload_image": "Hlaða upp mynd"
+    },
+    "setup_guide": {
+        "description": "Notaðu þessa leiðbeiningar til að byrja með appið.",
+        "steps": {
+            "activate_template_app": {
+                "title": "Virkja sniðmátsappið",
+                "description": "Virkjaðu sniðmátsappið til að byrja!",
+                "bullet1": "Opnaðu þema ritilinn með því að smella á tengilinn hér fyrir neðan",
+                "bullet2": "Finndu sniðmátsappið á listanum og stilltu það á \"Virkt\"",
+                "bullet3": "Smelltu á \"Vista\" til að vista breytingarnar",
+                "action": "Virkja sniðmátsappið"
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "prod": "vite build",
+        "shopify": "shopify",
+        "shopify-build": "shopify app build",
+        "shopify-dev": "shopify app dev",
+        "shopify-ext-dev": "if [ -d extensions ]; then find extensions -mindepth 1 -maxdepth 1 -type d -exec sh -c 'test -f \"$1/package.json\" && npm run dev --workspace=\"$1\" --if-present' _ {} \\;; fi",
+        "shopify-ext-prod": "if [ -d extensions ]; then find extensions -mindepth 1 -maxdepth 1 -type d -exec sh -c 'test -f \"$1/package.json\" && npm run prod --workspace=\"$1\" --if-present' _ {} \\;; fi",
+        "shopify-info": "shopify app info",
+        "test:browser": "./vendor/bin/pest tests/Browser/Admin --compact --no-tia"
+    },
+    "devDependencies": {
+        "@shopify/app-bridge-react": "^4.2.13",
+        "@shopify/polaris": "^13.9.5",
+        "@vitejs/plugin-react": "^6.1.1",
+        "concurrently": "^9.2.1",
+        "laravel-echo": "^2.4.0",
+        "laravel-vite-plugin": "^3.2.0",
+        "playwright": "1.62.1",
+        "pusher-js": "^8.6.0",
+        "vite": "^8.2.2"
+    },
+    "workspaces": [
+        "extensions/*",
+        "vendor/visualsoft/vs-mantle/resources/js/src/packages/*"
+    ],
+    "dependencies": {
+        "@heymantle/react": "^0.0.73",
+        "@inertiajs/react": "^2.3.7",
+        "chart.js": "^4.5.1",
+        "color-convert": "^3.1.2",
+        "i18next": "^25.6.0",
+        "react-chartjs-2": "^5.3.1",
+        "react-i18next": "^16.2.1",
+        "use-immer": "^0.11.0"
+    }
+}

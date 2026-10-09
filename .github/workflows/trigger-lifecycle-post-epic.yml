@@ -1,0 +1,31 @@
+# Trigger: Lifecycle Post-Epic (dispatch only)
+#
+# Thin wrapper. Logic lives in lifecycle-post-epic.yml.
+# Dispatched after intake completes (or via `/lifecycle post-epic`).
+
+name: Trigger Lifecycle Post-Epic
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue number to process
+        required: true
+        type: string
+  repository_dispatch:
+    types: [lifecycle-post-epic]
+
+concurrency:
+  group: lifecycle-${{ github.repository }}-${{ github.event.client_payload.issue_number || inputs.issue_number }}
+  cancel-in-progress: false
+
+jobs:
+  post-epic:
+    uses: VisualsoftUK/org-shared-workflows/.github/workflows/lifecycle-post-epic.yml@main
+    with:
+      issue_number: ${{ inputs.issue_number || github.event.client_payload.issue_number }}
+      project_number: ${{ vars.PROJECT_NUMBER }}
+    secrets:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+      GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
