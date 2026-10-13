@@ -40,3 +40,7 @@ shopify.app.toml
 
 # Pest browser test failure screenshots
 /storage/browser-test-artifacts
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

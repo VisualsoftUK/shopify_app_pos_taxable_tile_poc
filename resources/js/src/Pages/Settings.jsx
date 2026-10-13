@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { useLocale } from '@admin/Services/Common/I18n';
 import PageFooter from '@admin/Components/Common/PageFooter';
 import AppLayout from '@/Layouts/AppLayout';
+import CustomSettingsSkeleton from '@/CustomSettingsSkeleton';
+import EatInSettingsCard from '@components/Settings/EatInSettingsCard';
 import { router } from '@inertiajs/react';
 
 
@@ -93,7 +95,14 @@ export const Settings = () => {
                     <Layout.Section>
                         <BlockStack gap="400">
                             <Form onSubmit={handleSave}>
-                                
+                                {metafields === undefined
+                                    ? <CustomSettingsSkeleton />
+                                    : (
+                                        <EatInSettingsCard
+                                            defaultOrderType={metafields.defaultOrderType ?? 'takeaway'}
+                                            onChange={onMetafieldUpdate}
+                                        />
+                                    )}
                             </Form>
                         </BlockStack>
                     </Layout.Section>

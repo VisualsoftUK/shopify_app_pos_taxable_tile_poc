@@ -26,7 +26,7 @@ export SHOPIFY_API_VERSION=${SHOPIFY_API_VERSION:-"2026-04"}
 export SHOPIFY_APP_HANDLE=${SHOPIFY_APP_HANDLE:-"main"}
 export SHOPIFY_APP_REDIRECT_URL=${SHOPIFY_APP_REDIRECT_URL:-"$APP_URL/authenticate"}
 export SHOPIFY_APP_PREFERENCES_URL=${SHOPIFY_APP_PREFERENCES_URL:-"$APP_URL/settings"}
-export SHOPIFY_API_SCOPES=${SHOPIFY_API_SCOPES:-"read_files,write_files"}
+export SHOPIFY_API_SCOPES=${SHOPIFY_API_SCOPES:-"read_files,write_files,read_orders,write_orders,read_all_orders,read_products,write_products,read_customers,read_cart_transforms,write_cart_transforms,read_publications,write_publications"}
 export SHOPIFY_WEBHOOKS_URL=${SHOPIFY_WEBHOOKS_URL:-"$APP_URL/webhook"}
 
 # substitute into config file

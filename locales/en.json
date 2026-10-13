@@ -1,5 +1,5 @@
 {
-    "app_name": "App Template",
+    "app_name": "Eat-in or Takeaway Toggle for POS",
     "custom_settings": "Custom settings",
     "discard": "Discard",
     "save": "Save",
@@ -7,29 +7,35 @@
         "dashboard": "Dashboard",
         "how_it_works": "How It Works",
         "settings": "Settings",
-        "plans": "Plans"
+        "plans": "Plans",
+        "reports": "Reports"
     },
     "dashboard": {
         "stats": {
-            "example_stat_1": "Example Stat 1",
-            "example_stat_1_tooltip": "Example Stat 1 tooltip",
-            "example_stat_2": "Example Stat 2",
-            "example_stat_2_tooltip": "Example Stat 2 tooltip",
-            "example_stat_3": "Example Stat 3",
-            "example_stat_3_tooltip": "Example Stat 3 tooltip",
-            "example_stat_4": "Example Stat 4",
-            "example_stat_4_tooltip": "Example Stat 4 tooltip"
+            "eat_in_orders": "Eat-in orders",
+            "eat_in_orders_tooltip": "Orders classified as Eat In in this period",
+            "eat_in_charges": "Eat-in charges",
+            "eat_in_charges_tooltip": "Total eat-in surcharge (VAT element) collected on Eat In orders",
+            "takeaway_orders": "Takeaway orders",
+            "takeaway_orders_tooltip": "Orders classified as Takeaway in this period",
+            "zero_rated_value": "Zero-rated takeaway value",
+            "zero_rated_value_tooltip": "Value of dynamic items sold for takeaway with no eat-in charge",
+            "eat_in_share": "Eat-in share",
+            "eat_in_share_tooltip": "Eat In orders as a percentage of all classified orders",
+            "average_eat_in_charge": "Average eat-in charge",
+            "average_eat_in_charge_tooltip": "Average eat-in surcharge per Eat In order"
         },
         "welcome_panel": {
             "title": "Welcome to {{app_name}}",
-            "description": "This app enables you to:",
+            "description": "This app lets you:",
             "features": [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "Sed do eiusmod tempor incididunt ut labore et dolore",
-                "Ut enim ad minim veniam, quis nostrud exercitation",
-                "Duis aute irure dolor in reprehenderit in voluptate"
+                "Toggle POS carts between Eat In and Takeaway from a smart grid tile",
+                "Automatically add an eat-in charge to dynamic (cold food and drink) products",
+                "Tag orders and record the eat-in charge total against every order",
+                "Report and export eat-in and takeaway totals for your VAT returns"
             ]
-        }
+        },
+        "view_reports": "View reports"
     },
     "custom_configuration": "Custom configuration",
     "custom_configuration_description": "Advanced configuration options for this module.",
@@ -48,6 +54,71 @@
                 "bullet3": "Click \"Save\" to apply the changes",
                 "action": "Activate Template App"
             }
+        }
+    },
+    "order_types": {
+        "eat_in": "Eat In",
+        "takeaway": "Takeaway",
+        "all": "All order types"
+    },
+    "eat_in_settings": {
+        "title": "Eat In / Takeaway",
+        "description": "Used when a cart or order has not been marked as Eat In or Takeaway.",
+        "default_order_type": "Default order type"
+    },
+    "reports": {
+        "title": "Eat In / Takeaway reports",
+        "filters": {
+            "date_range": "Date range",
+            "order_type": "Order type",
+            "channel": "Channel",
+            "channel_all": "All channels",
+            "channel_pos": "Point of Sale",
+            "channel_web": "Online Store",
+            "apply": "Apply",
+            "cancel": "Cancel"
+        },
+        "export": "Export CSV",
+        "export_error": "The export could not be downloaded. Please try again.",
+        "truncated": "This date range contains more orders than can be reported at once, so totals only include the earliest orders. Choose a shorter range.",
+        "empty_title": "No classified orders",
+        "empty_description": "Orders appear here once they have been tagged as Eat In or Takeaway.",
+        "guest": "Guest",
+        "summary": {
+            "eat_in": "Eat In",
+            "takeaway": "Takeaway",
+            "orders": "Orders",
+            "order_value": "Order value",
+            "eat_in_charges": "Eat-in charges",
+            "average_charge": "Average charge",
+            "zero_rated_value": "Zero-rated value"
+        },
+        "tabs": {
+            "daily": "Daily",
+            "variants": "Variants",
+            "customers": "Customers",
+            "orders": "Orders"
+        },
+        "columns": {
+            "date": "Date",
+            "eat_in_orders": "Eat-in orders",
+            "eat_in_value": "Eat-in value",
+            "eat_in_charge": "Eat-in charge",
+            "takeaway_orders": "Takeaway orders",
+            "takeaway_value": "Takeaway value",
+            "zero_rated_value": "Zero-rated value",
+            "product": "Product",
+            "sku": "SKU",
+            "order_type": "Order type",
+            "orders": "Orders",
+            "quantity": "Quantity",
+            "line_value": "Line value",
+            "customer": "Customer",
+            "order_value": "Order value",
+            "order": "Order",
+            "created_at": "Date",
+            "channel": "Channel",
+            "total": "Total"
         }
     }
 }

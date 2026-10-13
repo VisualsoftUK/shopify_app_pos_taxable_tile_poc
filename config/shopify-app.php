@@ -1,5 +1,6 @@
 <?php
 
+use App\Application\Listeners\SetUpEatInOnAppInstalledListener;
 use Gnikyt\BasicShopifyAPI\Deferrers\Sleep;
 use Gnikyt\BasicShopifyAPI\Store\Memory;
 use Osiset\ShopifyApp\Messaging\Events\AppInstalledEvent;
@@ -205,7 +206,7 @@ return [
     |
     */
 
-    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_themes'),
+    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_themes,read_orders,write_orders,read_all_orders,read_products,write_products,read_customers,read_cart_transforms,write_cart_transforms,read_publications,write_publications'),
 
     /*
     |--------------------------------------------------------------------------
@@ -434,7 +435,7 @@ return [
 
     'listen' => [
         AppInstalledEvent::class => [
-            // \App\Listeners\MyListener::class,
+            SetUpEatInOnAppInstalledListener::class,
         ],
         ShopAuthenticatedEvent::class => [
             // \App\Listeners\MyListener::class,

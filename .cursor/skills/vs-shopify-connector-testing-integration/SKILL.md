@@ -17,6 +17,7 @@ Use this skill for connector-specific test strategy in service-heavy integration
 
 ## Service testing pattern
 
+- Use `InteractsWithGraphQl::mockGraphQlCall()` (or `mockGraphQlCallWithOptions()`) so `ShopifyGraphQlService` hits the test double. The trait resets memoized `ShopModel::api()` clients whenever stubs are registered; call `resetCachedShopifyApiClients()` after custom `graph` mocks too.
 - Mock service GraphQL chain (`for()->withQuery()->withParams()->get()`) deterministically.
 - Mock `CurrentAppInstallation::user()` when service resolves request-scoped shop context.
 - Assert retry/throttle behavior and `userErrors` handling, not just happy path payloads.

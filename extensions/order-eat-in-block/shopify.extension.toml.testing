@@ -1,0 +1,12 @@
+api_version = "2026-07"
+
+[[extensions]]
+type = "ui_extension"
+name = "Eat-in VAT (testing)"
+handle = "order-eat-in-block"
+description = "Order details block showing the order type, eat-in charges and zero-rated totals"
+
+# Only 1 target can be specified for each Admin block extension
+[[extensions.targeting]]
+module = "./src/BlockExtension.jsx"
+target = "admin.order-details.block.render"

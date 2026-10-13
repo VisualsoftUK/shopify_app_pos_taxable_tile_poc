@@ -1,0 +1,19 @@
+{
+    "heading": "Eat-in VAT",
+    "loading": "Loading eat-in VAT details",
+    "not_processed": "Not yet processed",
+    "not_processed_description": "Eat-in VAT details appear here once the order has been processed.",
+    "load_failed": "Couldn't load eat-in VAT details for this order.",
+    "order_type": "Order type",
+    "order_type_eat_in": "Eat In",
+    "order_type_takeaway": "Takeaway",
+    "eat_in_total": "Eat-in charge total",
+    "zero_rated_total": "Zero-rated total",
+    "breakdown_heading": "Breakdown",
+    "breakdown_empty": "No dynamic VAT items on this order.",
+    "column_product": "Product",
+    "column_quantity": "Qty",
+    "column_line_total": "Line total",
+    "column_eat_in_charge": "Eat-in charge",
+    "uplift_percent": "{{percent}}% uplift"
+}

@@ -10,7 +10,7 @@ handle = '${SHOPIFY_APP_HANDLE}'
 url = '${SHOPIFY_APP_PREFERENCES_URL}'
 
 [pos]
-embedded = false
+embedded = true
 
 [auth]
 redirect_urls = [ '${SHOPIFY_APP_REDIRECT_URL}' ]
@@ -25,3 +25,10 @@ api_version = '${SHOPIFY_API_VERSION}'
 topics = [ 'app/uninstalled' ]
 compliance_topics = [ 'customers/redact', 'customers/data_request', 'shop/redact' ]
 uri = '${SHOPIFY_WEBHOOKS_URL}'
+
+[[webhooks.subscriptions]]
+topics = [ 'orders/create', 'refunds/create' ]
+uri = '${SHOPIFY_WEBHOOKS_URL}'
+
+[build]
+include_config_on_deploy = true

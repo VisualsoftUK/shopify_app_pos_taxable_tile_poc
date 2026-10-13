@@ -1,0 +1,36 @@
+query CartTransformRunInput {
+  cart {
+    orderType: attribute(key: "_order_type") {
+      value
+    }
+    lines {
+      id
+      quantity
+      cost {
+        amountPerQuantity {
+          amount
+        }
+      }
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+          product {
+            title
+            behaviour: metafield(namespace: "vat", key: "behaviour") {
+              value
+            }
+            uplift: metafield(namespace: "vat", key: "eat_in_uplift_percent") {
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+  cartTransform {
+    config: metafield(namespace: "$app:eat-in", key: "config") {
+      jsonValue
+    }
+  }
+}

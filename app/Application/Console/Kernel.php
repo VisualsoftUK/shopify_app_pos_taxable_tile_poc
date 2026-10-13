@@ -2,6 +2,7 @@
 
 namespace App\Application\Console;
 
+use App\Application\Console\Commands\BackfillOrderVatCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Osiset\ShopifyApp\Console\RefreshExpiringOfflineTokensCommand;
@@ -21,6 +22,10 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->onOneServer();
         $schedule->command('telescope:prune --hours=168')->daily();
+        $schedule->command(BackfillOrderVatCommand::class)
+            ->dailyAt('03:00')
+            ->withoutOverlapping()
+            ->onOneServer();
     }
 
     /**

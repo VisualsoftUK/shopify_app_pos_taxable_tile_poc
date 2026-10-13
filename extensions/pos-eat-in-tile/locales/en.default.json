@@ -1,0 +1,8 @@
+{
+    "tile_heading": "Eat In / Takeaway",
+    "order_type_eat_in": "Eat In",
+    "order_type_takeaway": "Takeaway",
+    "subheading_default": "{{orderType}} (default)",
+    "toast_updated": "Order type set to {{orderType}}",
+    "toast_update_failed": "Couldn't update the order type. Try again."
+}

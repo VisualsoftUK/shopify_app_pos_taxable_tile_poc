@@ -3,7 +3,7 @@
 namespace App\Application\Http\Controllers\Admin;
 
 use App\Application\Http\Controllers\Controller;
-use App\Domain\Actions\GetExampleStats;
+use App\Domain\Actions\Reports\GetOrderTypeStatsAction;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,7 +19,7 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard', [
             'installUrl' => ThemeAppExtension::installUrl(),
             'stats' => Inertia::optional(
-                fn () => GetExampleStats::for($timeframe)->get(),
+                fn () => GetOrderTypeStatsAction::for($request->user(), $timeframe)->get(),
                 'stats'
             ),
             'setupStepsStatus' => GetSetUpSteps::for($request->user())->get(),

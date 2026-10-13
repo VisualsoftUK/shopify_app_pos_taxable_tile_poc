@@ -16,13 +16,11 @@ blocks:
         # Secret to allow pulling Visualsoft code from GitHub
         - name: Github
         # Secret to allow connecting to the dockyard container registry
-        - name: dockyard - shopify-app-example
+        - name: dockyard - shopify-app-pos-taxable-tile-poc
         # Secrets taken from Codacy > repo > Settings > Coverage, grabbing the Repository API Token & also the 4 vars from 'Using an account API token' tab
-        - name: Shopify App - Example (Codacy)
-        # Secrets relating to Shopify partner account
-        - name: Shopify Partner Token (Testing)
+        - name: Shopify App - POS Taxable Tile PoC (Codacy)
         # Secrets relating to this specific app
-        - name: Shopify App - Example (Testing)
+        - name: Shopify App - POS Taxable Tile PoC (Testing)
         # Secret to allow sending a failure notification to Google Chat
         - name: Semaphore Build Failure Webhook
       prologue:
@@ -130,4 +128,4 @@ after_pipeline:
           # Submit the Codacy Coverage Report
           - bash <(curl -Ls https://coverage.codacy.com/get.sh) final --commit-uuid $GIT_SHA
     secrets:
-      - name: Shopify App - Example (Codacy)
+      - name: Shopify App - POS Taxable Tile PoC (Codacy)
