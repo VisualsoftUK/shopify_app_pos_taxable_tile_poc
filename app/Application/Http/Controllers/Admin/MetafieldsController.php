@@ -3,7 +3,9 @@
 namespace App\Application\Http\Controllers\Admin;
 
 use App\Application\Http\Controllers\Controller;
+use App\Domain\Actions\Settings\SyncEatInSettingsAction;
 use App\Domain\DataObjects\CustomSettingsData;
+use Illuminate\Http\Request;
 use JsonSerializable;
 use Visualsoft\Shopify\Facades\CurrentAppInstallation;
 use Visualsoft\Shopify\Http\Requests\Admin\CreateFilesRequest;
@@ -22,9 +24,11 @@ class MetafieldsController extends Controller
     /**
      *  Validate and submit changes to metafields using a template data transfer object
      */
-    public function set(CustomSettingsData $data): void
+    public function set(CustomSettingsData $data, Request $request): void
     {
         CurrentAppInstallation::saveMetafields($data);
+
+        SyncEatInSettingsAction::for($request->user())->sync($data);
     }
 
     /**

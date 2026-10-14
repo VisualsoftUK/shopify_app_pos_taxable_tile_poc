@@ -1,5 +1,5 @@
 version: v1.0
-name: Promote to Testing
+name: Promote to Internal
 agent:
   machine:
     type: e1-standard-2
@@ -11,13 +11,11 @@ blocks:
         # Secret to allow pulling Visualsoft code from GitHub
         - name: Github
         # Secret to allow connecting to the dockyard container registry
-        - name: dockyard - shopify-app-example
+        - name: dockyard - shopify_app_pos_taxable_tile_poc 
         # Secret to allow creating a new release in the sentry project
-        - name: shopify-app-example - Sentry
-        # Secrets relating to Shopify partner account. Contains SHOPIFY_CLI_PARTNERS_TOKEN
-        - name: Shopify Partner Token (Testing)
+        - name: shopify_app_pos_taxable_tile_poc - Sentry
         # Secrets relating to this specific app, including $SHOPIFY_FLAG_CLIENT_ID used for the Shopify CLI release command
-        - name: Shopify App - Example (Testing)
+        - name: Shopify App - POS Taxable Tile PoC (Testing)
         # Secret to allow sending a failure notification to Google Chat
         - name: Semaphore Build Failure Webhook
       prologue:
@@ -118,8 +116,8 @@ blocks:
       env_vars:
         # Specify the build version of the app
         - name: APP_BUILD
-          value: testing
+          value: internal
         # Set a variable for the dockyard namespace
         - name: PROJECT
-          value: shopify-app-example
+          value: shopify_app_pos_taxable_tile_poc
     dependencies: []

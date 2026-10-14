@@ -28,7 +28,7 @@
         "visualsoft/vs-mantle": "^1.67.4",
         "visualsoft/vs-redis-cluster": "^1.0.0",
         "visualsoft/vs-shopify-admin": "^1.44.0",
-        "visualsoft/vs-shopify-app-pricing": "^0.1.14",
+        "visualsoft/vs-shopify-app-pricing": "^0.1.20",
         "visualsoft/vs-shopify-beacons": "^1.5.0",
         "visualsoft/vs-shopify-connector": "^1.62.0",
         "visualsoft/vs-shopify-partitions": "^1.3.0"

@@ -34,6 +34,7 @@ use Visualsoft\LaravelSecurity\Framework\Http\Middleware\ValidateSignature;
 use Visualsoft\LaravelSecurity\Framework\Http\Middleware\VerifyCsrfToken;
 use Visualsoft\LaravelSecurity\Framework\Presets\WebCspPreset;
 use Visualsoft\Shopify\Http\Middleware\ApplyShopScoping;
+use Visualsoft\Shopify\Http\Middleware\AuthPos;
 
 class Kernel extends HttpKernel
 {
@@ -111,5 +112,6 @@ class Kernel extends HttpKernel
         'abilities' => CheckAbilities::class,
         'ability' => CheckForAnyAbility::class,
         'shopify_generic_webhooks' => ShopifyGenericWebhooks::class,
+        'auth.pos' => AuthPos::class,
     ];
 }

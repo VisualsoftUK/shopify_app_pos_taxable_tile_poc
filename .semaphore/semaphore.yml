@@ -16,13 +16,11 @@ blocks:
         # Secret to allow pulling Visualsoft code from GitHub
         - name: Github
         # Secret to allow connecting to the dockyard container registry
-        - name: dockyard - shopify-app-example
+        - name: dockyard - shopify_app_pos_taxable_tile_poc
         # Secrets taken from Codacy > repo > Settings > Coverage, grabbing the Repository API Token & also the 4 vars from 'Using an account API token' tab
-        - name: Shopify App - Example (Codacy)
-        # Secrets relating to Shopify partner account
-        - name: Shopify Partner Token (Testing)
+        - name: Shopify App - POS Taxable Tile PoC (Codacy)
         # Secrets relating to this specific app
-        - name: Shopify App - Example (Testing)
+        - name: Shopify App - POS Taxable Tile PoC (Testing)
         # Secret to allow sending a failure notification to Google Chat
         - name: Semaphore Build Failure Webhook
       prologue:
@@ -79,21 +77,11 @@ blocks:
       env_vars: []
 promotions:
   # Define the promotions: testing, preprod and prod
-  - name: (1) Testing
+  - name: (1) Internal
     pipeline_file: build/1_testing.yml
     auto_promote:
       # Auto promote to testing when merged into the main branch, and the tests have all passed
       when: 'branch = ''main'' AND result = ''passed'''
-  - name: (2) Acceptance
-    pipeline_file: build/2_acceptance.yml
-    auto_promote:
-      # Auto promote to preprod when a new release tag has been created, and the tests have all passed
-      when: 'result = ''passed'' AND tag =~ ''^v(?P<major>[0-9]\d*)\.(?P<minor>[0-9]\d*)\.(?P<patch>[0-9]\d*)-rc(?P<release_candidate>\d*)'''
-  - name: (3) Production
-    pipeline_file: build/3_production.yml
-    auto_promote:
-      # Auto promote to prod when a new release tag has been created, and the tests have all passed
-      when: 'result = ''passed'' AND tag =~ ''^v(?P<major>[0-9]\d*)\.(?P<minor>[0-9]\d*)\.(?P<patch>[0-9]\d*)$'''
   - name: Dependency Audit
     pipeline_file: tasks/dependency-audit.yml
     auto_promote:
@@ -130,4 +118,4 @@ after_pipeline:
           # Submit the Codacy Coverage Report
           - bash <(curl -Ls https://coverage.codacy.com/get.sh) final --commit-uuid $GIT_SHA
     secrets:
-      - name: Shopify App - Example (Codacy)
+      - name: Shopify App - POS Taxable Tile PoC (Codacy)

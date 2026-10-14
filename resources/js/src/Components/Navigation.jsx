@@ -32,6 +32,7 @@ export default function Navigation() {
             {/* All other pages that require a plan should be in */}
             {hasActivePlan && (
                 <>
+                    <Link href="/app/reports">{t('pages.reports')}</Link>
                     <Link href="/app/how-it-works">{t('pages.how_it_works')}</Link>
                     <Link href="/app/custom-settings">{t('pages.settings')}</Link>
                 </>

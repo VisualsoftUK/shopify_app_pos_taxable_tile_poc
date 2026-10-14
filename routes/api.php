@@ -1,6 +1,7 @@
 <?php
 
 use App\Application\Http\Controllers\Api\IndexController;
+use App\Application\Http\Controllers\Api\PosConfigController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+
+Route::middleware('auth.pos')->group(function () {
+    Route::get('/pos/config', PosConfigController::class)->name('pos.config');
+});

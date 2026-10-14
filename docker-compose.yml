@@ -1,6 +1,6 @@
 services:
     nginx:
-        image: 'shopify-app-example/nginx'
+        image: 'shopify-app-eat-in-tile-poc/nginx'
         build:
             context: .
             dockerfile: ./docker/nginx/Dockerfile
@@ -11,14 +11,16 @@ services:
             - ${MOUNT_DIR:-./public}:/app:rw
         depends_on:
             - php-fpm
-            - mysql
             - reverb
         ports:
             - ${APP_PORT:-80}:80
         restart: always
+        networks:
+            - local_development
+            - default
 
     php-fpm:
-        image: 'shopify-app-example/php-fpm'
+        image: 'shopify-app-eat-in-tile-poc/php-fpm'
         build:
             context: .
             dockerfile: ./docker/php-fpm/Dockerfile
@@ -26,12 +28,13 @@ services:
             - .env
         volumes:
             - ${MOUNT_DIR:-.}:/app:rw
-        depends_on:
-            - mysql
         restart: always
+        networks:
+            - local_development
+            - default
 
     php-cli_jobs:
-        image: 'shopify-app-example/php-cli'
+        image: 'shopify-app-eat-in-tile-poc/php-cli'
         build:
             context: .
             dockerfile: ./docker/php-cli/Dockerfile
@@ -43,11 +46,13 @@ services:
             - ${MOUNT_DIR:-.}:/app:rw
         depends_on:
             - php-fpm
-            - mysql
         restart: always
+        networks:
+            - local_development
+            - default
 
     php-cli:
-        image: 'shopify-app-example/php-cli'
+        image: 'shopify-app-eat-in-tile-poc/php-cli'
         build:
             context: .
             dockerfile: ./docker/php-cli/Dockerfile
@@ -59,11 +64,13 @@ services:
             - ${MOUNT_DIR:-.}:/app:rw
         depends_on:
             - php-fpm
-            - mysql
         restart: always
+        networks:
+            - local_development
+            - default
 
     reverb:
-        image: 'shopify-app-example/reverb'
+        image: 'shopify-app-eat-in-tile-poc/reverb'
         build:
             context: .
             dockerfile: ./docker/reverb/Dockerfile
@@ -79,6 +86,9 @@ services:
         depends_on:
             - redis
         restart: always
+        networks:
+            - local_development
+            - default
 
     redis:
         image: 'dockyard.visualsoft.io/vs-platform/redis-cs:latest'
@@ -93,20 +103,15 @@ services:
         volumes:
              - redisstorage:/visualsoft/redis:rw
         restart: always
-
-    mysql:
-        image: 'mysql:8.0'
-        environment:
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
-            MYSQL_DATABASE: ${DB_DATABASE:-app_template}
-            MYSQL_USER: ${DB_USERNAME:-app_template}
-            MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
-        ports:
-            - ${MYSQL_PORT:-3306}:3306
-        volumes:
-            - mysql_data:/var/lib/mysql
-        restart: always
+        networks:
+            - local_development
+            - default
 
 volumes:
     mysql_data:
     redisstorage:
+
+networks:
+    default:
+    local_development:
+        external: true

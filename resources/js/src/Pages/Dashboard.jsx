@@ -3,9 +3,9 @@ import {
     Page,
     Layout,
 } from "@shopify/polaris";
-import { CalendarIcon } from "@shopify/polaris-icons";
+import { CalendarIcon, ChartVerticalIcon } from "@shopify/polaris-icons";
 import { useTranslation } from "react-i18next";
-import { Deferred } from '@inertiajs/react';
+import { Deferred, router } from '@inertiajs/react';
 import AppLayout from "@/Layouts/AppLayout";
 import { partialReload } from '@files/Utils';
 import { createTimeFilters } from '@admin/Utils/Stats/TimeFilters';
@@ -18,8 +18,6 @@ import PageFooter from '@admin/Components/Common/PageFooter';
 import WelcomeCard from '@admin/Components/Common/WelcomeCard';
 import SetupGuide from '@admin/Components/Common/SetupGuide';
 import WelcomeIllustration from '@/Assets/WelcomeIllustration';
-import { getHasActivePlan, navigateToPlans } from '@mantle/Services/MantleInertia';
-import NoPlanBanner from '@mantle/Components/NoPlanBanner';
 import { SubscriptionExpiryBanner } from '@app-pricing';
 
 export default function Dashboard({ stats, setupStepsStatus }) {
@@ -36,8 +34,6 @@ export default function Dashboard({ stats, setupStepsStatus }) {
     const timeFilters = createTimeFilters(t, setFilter, filter);
     const activeFilter = timeFilters.at(filter) ?? timeFilters[1];
 
-    const hasActivePlan = getHasActivePlan() ?? false;
-
     // Merge setup steps status with setup data
     useEffect(() => {
         if (!setupStepsStatus) return;
@@ -52,8 +48,6 @@ export default function Dashboard({ stats, setupStepsStatus }) {
 
     // Reload stats when filter changes
     useEffect(() => {
-        if (!hasActivePlan) return;
-
         partialReload({
             only: ['stats'],
             params: { timeframe: activeFilter.timeframe },
@@ -69,34 +63,35 @@ export default function Dashboard({ stats, setupStepsStatus }) {
             <ui-title-bar title={t('app_name')}></ui-title-bar>
             <Page
                 title={t('pages.dashboard')}
-                actionGroups={hasActivePlan ? [
+                secondaryActions={[
+                    {
+                        content: t('dashboard.view_reports'),
+                        icon: ChartVerticalIcon,
+                        onAction: () => router.visit('/app/reports'),
+                    },
+                ]}
+                actionGroups={[
                     {
                         icon: CalendarIcon,
                         title: activeFilter.content,
                         actions: timeFilters
                     },
-                ] : []}
+                ]}
             >
                 <Layout>
                     <Layout.Section>
                         <SubscriptionExpiryBanner />
                     </Layout.Section>
 
-                    {!hasActivePlan && (
-                        <NoPlanBanner action={navigateToPlans} />
-                    )}
-
                     {/* Stats Cards */}
-                    {hasActivePlan && (
-                        <Layout.Section>
-                            <Deferred
-                                data="stats"
-                                fallback={<StatsBar columns={4} asFallback={true} t={t} />}
-                            >
-                                <StatsBar stats={stats} loading={statsLoading} columns={4} t={t} />
-                            </Deferred>
-                        </Layout.Section>
-                    )}
+                    <Layout.Section>
+                        <Deferred
+                            data="stats"
+                            fallback={<StatsBar columns={3} statCount={6} asFallback={true} t={t} />}
+                        >
+                            <StatsBar stats={stats} loading={statsLoading} columns={3} statCount={6} t={t} />
+                        </Deferred>
+                    </Layout.Section>
 
                     {/* Welcome Card */}
                     {!stepData?.steps?.find(step => step.stepKey === 'welcome_card_dismissed')?.completed && (
@@ -117,7 +112,7 @@ export default function Dashboard({ stats, setupStepsStatus }) {
                     )}
 
                     {/* Setup Guide */}
-                    {hasActivePlan && stepsDataLoaded && !stepData?.steps?.find(step => step.stepKey === 'dismissed')?.completed && (
+                    {stepsDataLoaded && !stepData?.steps?.find(step => step.stepKey === 'dismissed')?.completed && (
                         <Layout.Section>
                             <SetupGuide
                                 stepData={stepData}
@@ -144,7 +139,7 @@ export default function Dashboard({ stats, setupStepsStatus }) {
                     {/* Feedback Cards */}
                     <Layout.Section>
                         <FeedbackCards
-                            showFeedbackCard={hasActivePlan}
+                            showFeedbackCard={true}
                             useMantleHelpDesk={useMantleHelpDesk}
                             useGorgiasHelpDesk={useGorgiasHelpDesk}
                         />

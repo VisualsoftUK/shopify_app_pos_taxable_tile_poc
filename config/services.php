@@ -14,6 +14,15 @@ return [
     |
     */
 
+    /*
+     * The App Pricing package's Shopify Partner API calls (activeSubscription,
+     * subscription events). Disabled by default because this is a custom app and
+     * Shopify restricts the Active Subscription API to public apps.
+     */
+    'shopify_partner_api' => [
+        'enabled' => (bool) env('SHOPIFY_PARTNER_API_ENABLED', false),
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

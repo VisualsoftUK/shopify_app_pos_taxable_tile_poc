@@ -3,9 +3,11 @@
 namespace App\Framework\Providers;
 
 use App\Domain\Models\User;
+use App\Framework\Support\DisabledPartnerApiClient;
 use Illuminate\Support\Facades\Auth;
 use Osiset\ShopifyApp\Contracts\ShopModel;
 use Visualsoft\LaravelSecurity\Framework\Providers\AppServiceProvider as BaseAppServiceProvider;
+use Visualsoft\ShopifyAppPricing\Client\PartnerApiClient;
 
 class AppServiceProvider extends BaseAppServiceProvider
 {
@@ -19,6 +21,10 @@ class AppServiceProvider extends BaseAppServiceProvider
         $this->app->bind(ShopModel::class, function ($app) {
             return Auth::user() ?? $app->make(User::class);
         });
+
+        if (config('services.shopify_partner_api.enabled') !== true) {
+            $this->app->singleton(PartnerApiClient::class, DisabledPartnerApiClient::class);
+        }
     }
 
     /**

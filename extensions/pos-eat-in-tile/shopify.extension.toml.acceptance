@@ -1,0 +1,15 @@
+api_version = "2026-07"
+
+[[extensions]]
+type = "ui_extension"
+name = "Eat In / Takeaway (acceptance)"
+handle = "pos-eat-in-tile"
+description = "POS smart grid tile that toggles the cart between Eat In and Takeaway"
+
+[extensions.capabilities]
+network_access = true
+
+# Smart grid tile: tapping it toggles the `_order_type` / `Order type` cart properties.
+[[extensions.targeting]]
+module = "./src/Tile.jsx"
+target = "pos.home.tile.render"

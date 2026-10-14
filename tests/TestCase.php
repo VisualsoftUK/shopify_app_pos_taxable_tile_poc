@@ -8,14 +8,18 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Sleep;
 use Osiset\ShopifyApp\Contracts\ShopModel;
 use PHPUnit\Framework\Exception;
+use Tests\Concerns\MocksGraphQlOperations;
 use Visualsoft\Shopify\Tests\Concerns\HasShopifyAuth;
+use Visualsoft\Shopify\Tests\Concerns\HasShopifyPosAuth;
 use Visualsoft\Shopify\Tests\Concerns\InteractsWithGraphQl;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use HasShopifyAuth;
+    use HasShopifyPosAuth;
     use InteractsWithGraphQl;
+    use MocksGraphQlOperations;
 
     protected function setUp(): void
     {
